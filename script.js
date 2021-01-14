@@ -9,12 +9,12 @@ function modelLoaded() {
   img = document.getElementById("image");
   img.src = 'DropHere.png';
   img.addEventListener("dragover",function(ev){ ev.preventDefault();}, false);
-  img.addEventListener("drop", function(ev){ ev.preventDefault(); Classify(ev);}, false);
+  img.addEventListener("drop", function(ev){ ev.preventDefault(); GetImage(ev);}, false);
 
 }
 
-// Classify
-function Classify(ev){
+// GetImage
+function GetImage(ev){
 
   var file = ev.dataTransfer.files[0];
 
@@ -29,7 +29,10 @@ function Classify(ev){
 
   reader.onloadend = function() {
     img.setAttribute("src",reader.result);
-    classifier.predict(img, DisplayResults);
+    img.onload = function(){
+      console.log(img.naturalWidth, img.naturalHeight);
+      classifier.predict(img, DisplayResults);
+    }
   }
 
 }
