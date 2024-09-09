@@ -1,6 +1,10 @@
 // Preload
-const  classifier = ml5.imageClassifier('MobileNet', modelLoaded);
+let classifier;
 let img;
+
+function preload() {
+  classifier = ml5.imageClassifier("MobileNet");
+}
 
 // modelLoaded > Ready to Accept
 function modelLoaded() {
@@ -31,7 +35,7 @@ function GetImage(ev){
     img.setAttribute("src",reader.result);
     img.onload = function(){
       console.log(img.naturalWidth, img.naturalHeight);
-      classifier.predict(img, DisplayResults);
+      classifier.classify(img, DisplayResults);
     }
   }
 
